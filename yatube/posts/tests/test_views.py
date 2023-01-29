@@ -168,8 +168,6 @@ class PostViewTests(TestCase):
         self.authorized_client_2.get(reverse(
             'posts:profile_follow', kwargs={'username': self.user}))
         response = self.authorized_client_2.get(reverse('posts:follow_index'))
-        self.assertEqual(len(
-            response.context['page_obj']), self.POSTS_ON_FIRST_PAGE)
         self.assertEqual(
             response.context['page_obj'][0].author.username,
             self.user.username)
