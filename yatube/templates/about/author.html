@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>Пару слов об авторе проекта</title>{% endblock %}
+{% block content %}
+<div class="container col-lg-9 col-sm-12">
+  <h3>Всем привет! Меня зовут Федорова Татьяна - я разработчик-студент данного учебного проекта!</h3>
+  <br>
+  <p>
+    Грызу гранит науки IT-технологий и обучаюсь на курсе <b>Python-разработчик в ЯП</b>.<br>
+    <b>На фото  мой помощник - кот Семён!</b>
+  <img src="{% static 'img/sema.png' %}" alt="My image" width="349" height="533">
+  </p>
+</div>
+{% endblock %}

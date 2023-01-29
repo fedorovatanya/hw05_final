@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Записи сообщества {{ group.title }}</title>
+{% endblock %}
+{% load thumbnail %}
+{% block content %}
+  <!-- класс py-5 создает отступы сверху и снизу блока -->
+  <div class="container py-5">
+    <h1>{{ group.title }}</h1>
+    <p>{{ group.description|linebreaks }}</p>
+    <br>
+    {% for post in page_obj %}
+    {% include 'posts/includes/article.html' with without_group_links=True %}
+    {% endfor %}
+  </div>
+  {% include 'posts/includes/paginator.html' %}
+{% endblock %}
