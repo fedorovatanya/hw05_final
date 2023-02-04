@@ -52,8 +52,9 @@ class PostURLTests(TestCase):
     def test_urls_uses_correct_template_for_authorized(self):
         """Проверка доступности страниц для авторизированного пользователя."""
         templates_pages_names = {
-            '/posts/1/edit/': HTTPStatus.OK,
+            f'/posts/{self.post.id}/edit/': HTTPStatus.OK,
             '/create/': HTTPStatus.OK,
+            '/follow/': HTTPStatus.OK,
         }
         for reverse_name, template in templates_pages_names.items():
             with self.subTest(reverse_name=reverse_name):
@@ -73,10 +74,11 @@ class PostURLTests(TestCase):
         template_url_names = {
             '/': 'posts/index.html',
             '/create/': 'posts/create_post.html',
-            '/posts/1/': 'posts/post_detail.html',
-            '/posts/1/edit/': 'posts/create_post.html',
-            '/profile/TestUser/': 'posts/profile.html',
-            '/group/test_group/': 'posts/group_list.html',
+            f'/posts/{self.post.id}/': 'posts/post_detail.html',
+            f'/posts/{self.post.id}/edit/': 'posts/create_post.html', # f'/posts/{self.post.id}/edit/'
+            f'/profile/{self.user.username}/': 'posts/profile.html',
+            f'/group/{self.group.slug}/': 'posts/group_list.html',
+            '/follow/': 'posts/follow.html',
         }
         for reverse_name, template in template_url_names.items():
             with self.subTest(reverse_name=reverse_name):

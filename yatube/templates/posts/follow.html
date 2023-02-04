@@ -5,10 +5,7 @@
     <h3>Подписки:</h3>
     {% include 'posts/includes/switcher.html' %}
     {% for post in page_obj %}
-      {% include 'posts/includes/post_list.html' %}
-      {% if post.group.slug %}
-        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы {{ post.group.title }}</a>
-      {% endif %}
+      {% include 'posts/includes/article.html' %}
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
     {% include 'posts/includes/paginator.html' %}

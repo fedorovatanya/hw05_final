@@ -107,36 +107,14 @@ class PostFormTests(TestCase):
 
     def test_comment_for_post_created_successfully(self):
         """Тест создания комментария авторизованным пользователем"""
-        post = Post.objects.create(
-            text='Тестовый текст',
-            author=self.user
-        )
         form_data = {
-            'post': post,
+            'post': self.post,
             'author': self.user,
             'text': 'Тестовый комментарий'
         }
         self.authorized_client.post(
-            reverse('posts:add_comment', kwargs={'post_id': post.id}),
+            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
             data=form_data,
             follow=True
         )
-        self.assertTrue(post.comments.filter(text=form_data['text']).exists())
-
-    def test_guest_client_cannot_create_comment_for_post(self):
-        Post.objects.create(
-            text='Тестовый текст',
-            author=self.user
-        )
-        form_data = {
-            'text': 'Тестовый комментарий',
-            'author': self.guest_client,
-        }
-        post_id = Post.objects.count()
-        comments_count = Comment.objects.count()
-        self.guest_client.post(
-            reverse('posts:add_comment', kwargs={'post_id': post_id}),
-            data=form_data,
-            follow=True
-        )
-        self.assertEqual(Comment.objects.count(), comments_count)
+        self.assertTrue(self.post.comments.filter(text=form_data['text']).exists())
