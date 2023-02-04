@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.conf import settings
-from ..models import Post, Group, Comment
+from ..models import Post, Group
 
 User = get_user_model()
 
@@ -117,4 +117,5 @@ class PostFormTests(TestCase):
             data=form_data,
             follow=True
         )
-        self.assertTrue(self.post.comments.filter(text=form_data['text']).exists())
+        self.assertTrue(self.post.comments.filter(text=form_data['text'])
+                        .exists())
