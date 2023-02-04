@@ -37,15 +37,16 @@ def profile(request, username):
     page_obj = get_page_paginator(request, posts)
     template = 'posts/profile.html'
     if request.user.is_authenticated:
-        following = Follow.objects.filter(
-            user=request.user, author=author).exists()
         following = False
-    context = {
-        'author': author,
-        'page_obj': page_obj,
-        'posts': posts,
-        'following': following,
-    }
+        if request.user.follower.filter(author=author).exists():
+            following = True
+        context = {'author': author,
+                   'page_obj': page_obj,
+                   'posts': posts,
+                   'following': following}
+        return render(request, template, context)
+    context = {'page_obj': page_obj,
+               'author': author}
     return render(request, template, context)
 
 
