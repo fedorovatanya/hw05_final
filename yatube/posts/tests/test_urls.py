@@ -39,7 +39,7 @@ class PostURLTests(TestCase):
         """Проверка доступности pages for unauth_users."""
         templates_pages_names = {
             '/': HTTPStatus.OK,
-            '/posts/1/': HTTPStatus.OK,
+            f'/posts/{self.post.id}/': HTTPStatus.OK,
             f'/group/{self.group.slug}/': HTTPStatus.OK,
             f'/profile/{self.user.username}/': HTTPStatus.OK,
             '/unexisting_page/': HTTPStatus.NOT_FOUND,

@@ -1,9 +1,10 @@
 {% load thumbnail %}
 <article>
   <ul>
-    <li>
-    Автор: <a href="{% url 'posts:profile' post.author %}">{{ post.author.get_full_name }}</a>
-    </li>
+    
+    {% if post.author and not without_author_links %}
+    <li>Автор: <a href="{% url 'posts:profile' post.author %}">{{ post.author.get_full_name }}</a></li>
+    {% endif %}
     <li>
       Дата публикации: {{ post.pub_date|date:"d E Y" }}
     </li>
@@ -18,6 +19,6 @@
   <br>
   <br>
   <p>{{ post.text }}</p>
-  <a href="{% url 'posts:post_detail' post.pk %}">(подробная инфомация)</a>
+  <a href="{% url 'posts:post_detail' post.pk %}">(подробная информация)</a>
   {% if not forloop.last %}<hr>{% endif %}
 </article>
